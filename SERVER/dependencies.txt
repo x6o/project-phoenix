@@ -1,0 +1,9 @@
+// TODO: Add links to all these dependencies
+
+server.py
+    * Flask
+
+processvideoscript.py
+    * pafy
+    * moviepy
+    * progress
