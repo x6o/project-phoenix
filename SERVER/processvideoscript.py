@@ -14,7 +14,6 @@ class VideoProcessing:
         pass
 
     # All the juicy stuff happens here!
-    # TODO Accept configuration arguments
     def process(self, config):
         
         playlistIds = []
