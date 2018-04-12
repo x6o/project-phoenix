@@ -43,7 +43,7 @@ class VideoProcessing:
             filename = s.download(filepath="./temp_vids/" + vid + ".mp4")
 
         vids = []
-        vids.append(VideoFileClip("intro.mp4"))
+        #vids.append(VideoFileClip("intro.mp4"))
         for vid in randomVidsToDl:
             vids.append(VideoFileClip("./temp_vids/" + vid + ".mp4"))
         
