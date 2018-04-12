@@ -10,20 +10,16 @@ from progress.bar import Bar
 class VideoProcessing:
 
     def __init__(self):
+        # TODO: Map all processing config vars here
         pass
 
     # All the juicy stuff happens here!
     # TODO Accept configuration arguments
-    def process(self):
+    def process(self, config):
         
-        # Config
-
-        #memePlaylistUrl = "https://www.youtube.com/playlist?list=PLv3TTBr1W_9tppikBxAE_G6qjWdBljBHJ"
-        playlistUrl = "https://www.youtube.com/playlist?list=PLhCGrfbSCqDkuv9Gh5mZ85gwZqczL12bT"
-
         playlistIds = []
 
-        playlistObject = pafy.get_playlist2(playlistUrl)
+        playlistObject = pafy.get_playlist2(config['playlistUrl'])
         print('Playlist has ' + str(len(playlistObject)) + ' vids.')
         bar = Bar('Retrieving playlist info', max=len(playlistObject), suffix='%(index)d/%(max)d - %(percent).1f%%')
         for vidObj in playlistObject:
@@ -31,22 +27,32 @@ class VideoProcessing:
                 bar.next()
         bar.finish()
 
-        randomVidsToDl = random.sample(playlistIds, 2)
+        vidsToDl = []
+        if config['pickRandom']:
+            vidsToDl = random.sample(playlistIds, 2)
+        else:
+            # TODO: take n first videos from playlistIds
+            pass
 
-        tempVidPath = './temp_vids' 
+        tempVidPath = './temp_vids'
         if not os.path.exists(tempVidPath):
             os.makedirs(tempVidPath)
             
-        for vid in randomVidsToDl:
+        for vid in vidsToDl:
             v = pafy.new(vid)
-            s = v.getbest(preftype="mp4")
+            s = v.getbest(preftype="mp4") # in the future make this a parameter to choose resolution
             filename = s.download(filepath="./temp_vids/" + vid + ".mp4")
 
         vids = []
-        #vids.append(VideoFileClip("intro.mp4"))
-        for vid in randomVidsToDl:
+        # TODO: for v2, let users upload a intro video
+        # vids.append(VideoFileClip("intro.mp4"))
+        for vid in vidsToDl:
             vids.append(VideoFileClip("./temp_vids/" + vid + ".mp4"))
         
         final = concatenate_videoclips(vids, method='compose')
-        final.write_videofile("final.mp4", fps=30)
+
+        # TODO: read FPS from config
+        final.write_videofile("final.mp4", fps=30) 
+
+        return "Return something here"
         #shutil.rmtree('./temp_vids/')
