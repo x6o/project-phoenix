@@ -22,8 +22,10 @@ class VideoProcessingServer:
 
         # Add auth token verification here 
 
-        if 'playlistUrl' in request.json: # TODO: should verify something else..?
+        if 'requestId' in request.json: # TODO: should verify something else..?
             processingConfig = request.json
+
+            # Should verify if id exists
             
             script = VideoProcessing()
             result = script.process(processingConfig)
