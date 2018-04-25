@@ -1,21 +1,4 @@
-# Angular + Firebase + Bootstrap
-
-A basic project seed for Angular with user registration and login.
-
-This project is a seed for web application based on Angular that uses
-[Bootstrap](https://ng-bootstrap.github.io) for UI and 
-[Firebase](https://github.com/angular/angularfire2) for data storage. The
-project contains all functionality to register users via e-mail and password
-on Firebase. It provides login and a simple profile page where users can
-change their e-mail address and password.
-
-Please adapt to your needs :)
-
-This project was generated with
-[Angular CLI](https://github.com/angular/angular-cli) version 1.6.3.
-
-It was updated to the settings of Angular CLI version 1.0.0 and currently uses
-Angular version 5.0.0.
+Thanks to [ng-lisbon/angular-firebase-seed](https://github.com/ng-lisbon/angular-firebase-seed)
 
 ## Install prerequisites
 
@@ -53,8 +36,3 @@ Run `ng test` to execute the unit tests via
 Run `ng e2e` to execute the end-to-end tests via
 [Protractor](http://www.protractortest.org/). Before running the tests make
 sure you are serving the app via `ng serve`.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the
-[Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
