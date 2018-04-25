@@ -7,12 +7,14 @@ import shutil
 import firebase_admin
 from moviepy.editor import *
 from progress.bar import Bar
-from firebase_admin import credentials, db
+from firebase_admin import credentials, db, storage
 
-cred = credentials.Certificate('spliceer-video-firebase-adminsdk-81pru-c08fc33ea5.json')
+cred = credentials.Certificate('spliceer-video-firebase-adminsdk-81pru-4143e2521a.json')
 firebase_admin.initialize_app(cred, {
     'databaseURL' : 'https://spliceer-video.firebaseio.com/'
 })
+
+storageBucket = storage.bucket('spliceer-video.appspot.com')
 
 class VideoProcessing:
 
@@ -42,7 +44,7 @@ class VideoProcessing:
                 vidsToDl = random.sample(playlistIds, 2)
             else:
                 # TODO: take n first videos from playlistIds
-                pass
+                pass                
 
             tempVidPath = './temp_vids'
             if not os.path.exists(tempVidPath):
@@ -61,8 +63,13 @@ class VideoProcessing:
             
             final = concatenate_videoclips(vids, method='compose')
 
-            # TODO: read FPS from config
-            final.write_videofile("final.mp4", fps=config['videosFps']) 
+            final.write_videofile("{0}.mp4".format(request['requestId'].replace('-', '_')), fps=config['videosFps'])
 
-        return "Return something here"
+            print "Uploading file"
+            blob = storageBucket.blob('user-videos/{0}.mp4'.format(request['requestId']))
+            blob.upload_from_filename("{0}.mp4".format(request['requestId'].replace('-', '_')))
+            return blob.public_url
+            
+
+        return None
         #shutil.rmtree('./temp_vids/')

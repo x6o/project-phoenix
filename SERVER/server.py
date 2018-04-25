@@ -31,10 +31,9 @@ class VideoProcessingServer:
             result = script.process(processingConfig)
 
             returnData = {
-                'id': 'SuccessIdGoesHere'
+                'url': result
             }
         
-            print(request.json)
             return jsonify({'payload': returnData}), 200
 
 if __name__ == '__main__':
