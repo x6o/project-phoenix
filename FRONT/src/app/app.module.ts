@@ -6,6 +6,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
+
+
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
 import { HeaderComponent } from './shared/header.component';
@@ -17,12 +19,12 @@ import { AlertsService } from './shared/alerts/alerts.service';
 import { AlertsComponent } from './shared/alerts/alerts.component';
 
 export const firebaseConfig = {
-    apiKey: '',
-    authDomain: '',
-    databaseURL: '',
-    projectId: '',
-    storageBucket: '',
-    messagingSenderId: ''
+  apiKey: '',
+  authDomain: '',
+  databaseURL: '',
+  projectId: '',
+  storageBucket: '',
+  messagingSenderId: ''
 };
 
 @NgModule({

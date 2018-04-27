@@ -8,12 +8,15 @@
       aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <a class="navbar-brand" [routerLink]="['/']">LOGO</a>
+  <a class="navbar-brand" [routerLink]="['/']"><b>spliceer</b>.com</a>
 
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/']">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/project']" *ngIf="isAuthenticated">Projects</a>
       </li>
     </ul>
     <ul class="navbar-nav">
@@ -23,9 +26,7 @@
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/auth', 'register']" *ngIf="!isAuthenticated">Signup</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/profile']" *ngIf="isAuthenticated">Profile</a>
-      </li>
+      <span *ngIf="isAuthenticated" class="navbar-text">Hello  <a [routerLink]="['/profile']">{{userEmail}}</a>!</span>
       <li class="nav-item">
         <a class="nav-link cp" (click)="onLogout()" *ngIf="isAuthenticated">Logout</a>
       </li>

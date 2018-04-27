@@ -1,0 +1,71 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="card">
+      <h5 class="card-header">New project</h5>
+      <br/>
+      <form #f="ngForm" (ngSubmit)="onNewProj(f)" novalidate>
+        <div class="form-row">
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label for="inputCity">Playlist URL</label>
+              <input
+              name="playlistUrl"
+              type="text"
+              placeholder="Full YouTube playlist URL..."
+              class="form-control"
+              required
+              ngModel
+              #email="ngModel">
+              <div class="form-control-feedback" *ngIf="email.touched && email.errors?.required">
+                Please enter an URL.
+              </div>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="inputCity">Number of videos</label>
+                <input
+                name="numberVideos"
+                type="number"
+                placeholder="Number of videos to pick"
+                class="form-control"
+                required
+                ngModel
+                #numberVideos="ngModel">
+                <div class="form-control-feedback" *ngIf="email.touched && email.errors?.required">
+                  Please enter a number.
+                </div>
+              </div>
+            <hr/>
+            <div class="form-group col-md-6">
+                <button type="submit" class="btn btn-primary">Create project</button>
+              </div>
+          </div>
+      </div>
+    </form>
+  </div>  
+  </div>
+  <div class="col-md-6">
+    <h2></h2>
+    <div class="card">
+      <h5 class="card-header">Existing projects</h5>
+      <pre>{{items | async | json}}</pre>
+      <table *ngIf="userProjects.length !== 0" class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Project 1</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Project XPTO</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>  
+</div>

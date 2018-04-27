@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     this.authService.loginUser(loginForm.value.email, loginForm.value.password).first()
     .subscribe(
       (auth) => {
-        this.router.navigate(['/profile'])
+        this.router.navigate(['/project'])
       },
       (error) => {
         this.alertsService.addAlert({

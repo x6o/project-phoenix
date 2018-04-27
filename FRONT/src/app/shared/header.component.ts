@@ -10,6 +10,7 @@ import { AuthService } from './auth.service';
 })
 export class HeaderComponent implements OnInit {
   isAuthenticated = false;
+  userEmail = '';
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -22,6 +23,9 @@ export class HeaderComponent implements OnInit {
     this.authService.isAuthenticated().subscribe(
       (isAuthenticated) => this.isAuthenticated = isAuthenticated
     );
-  }
 
+    this.authService.getMailAddress().first().subscribe(
+      (email) => this.userEmail = email
+    )
+  }
 }
