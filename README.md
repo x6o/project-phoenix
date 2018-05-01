@@ -11,5 +11,5 @@
   * ~~create basic "Projects" UI~~ (w/ realtime processing status)
   * configure firebase authentication emails
   * make angular call the server script so it starts the processing of the project
-  * change processing script so it updates realtime status of the request
+  * ~~change processing script so it updates realtime status of the request~~
   * create and implement request object for the frontend
