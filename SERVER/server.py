@@ -1,9 +1,11 @@
 #!flask/bin/python
 from flask import Flask, request, abort, jsonify
+from flask_cors import CORS
 from processvideoscript import VideoProcessing
 import json
 
 app = Flask(__name__)
+CORS(app)
 class VideoProcessingServer:
     
     # TODO: implement?
@@ -19,7 +21,8 @@ class VideoProcessingServer:
     def process():
         if not request.json:
             abort(400)
-
+            
+        print request.json;
         # Add auth token verification here 
 
         if 'requestId' in request.json: # TODO: should verify something else..?

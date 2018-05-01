@@ -2,6 +2,7 @@
 
 server.py
     * Flask
+    * flask-cors
 
 processvideoscript.py
     * pafy

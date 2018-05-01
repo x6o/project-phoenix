@@ -30,7 +30,7 @@ class VideoProcessing:
         
         if config:
             playlistIds = []
-
+            requests_ref.update({"processing_status": "Parsing playlist..."})
             playlistObject = pafy.get_playlist2(config['playlistUrl'])
             print('Playlist has ' + str(len(playlistObject)) + ' vids.')
             bar = Bar('Retrieving playlist info', max=len(playlistObject), suffix='%(index)d/%(max)d - %(percent).1f%%')
@@ -39,9 +39,11 @@ class VideoProcessing:
                     bar.next()
             bar.finish()
 
+            requests_ref.update({"processing_status": "Processing video..."})
+
             vidsToDl = []
             if config['pickRandom']:
-                vidsToDl = random.sample(playlistIds, 2)
+                vidsToDl = random.sample(playlistIds, config['numberVideos'])
             else:
                 # TODO: take n first videos from playlistIds
                 pass                
@@ -62,14 +64,15 @@ class VideoProcessing:
                 vids.append(VideoFileClip("./temp_vids/" + vid + ".mp4"))
             
             final = concatenate_videoclips(vids, method='compose')
-
+            requests_ref.update({"processing_status": "Exporting video..."})
             final.write_videofile("{0}.mp4".format(request['requestId'].replace('-', '_')), fps=config['videosFps'])
 
             print "Uploading file"
+            requests_ref.update({"processing_status": "Uploading video..."})
             blob = storageBucket.blob('user-videos/{0}.mp4'.format(request['requestId']))
             blob.upload_from_filename("{0}.mp4".format(request['requestId'].replace('-', '_')))
+            requests_ref.update({ "final_export_url": blob.public_url, "processing_status": "Exported"})
             return blob.public_url
-            
 
         return None
         #shutil.rmtree('./temp_vids/')
