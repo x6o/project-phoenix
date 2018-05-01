@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-12">
     <div class="card">
       <h5 class="card-header">New project</h5>
       <br/>
@@ -20,12 +20,14 @@
                 Please enter an URL.
               </div>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-5">
                 <label for="inputCity">Number of videos</label>
                 <input
                 name="numberVideos"
                 type="number"
-                placeholder="Number of videos to pick"
+                placeholder=""
+                min="1"
+                max="5"
                 class="form-control"
                 required
                 ngModel
@@ -43,29 +45,42 @@
     </form>
   </div>  
   </div>
-  <div class="col-md-6">
+</div>
+
+<div class="row">
+  <div class="col-md-12">
     <h2></h2>
     <div class="card">
       <h5 class="card-header">Existing projects</h5>
       <pre>{{items | async | json}}</pre>
-      <table *ngIf="userProjects.length !== 0" class="table">
+      <table *ngIf="items | async" class="table">
         <thead>
           <tr>
             <th>ID</th>
-            <th>Link</th>
+            <th style="width: 30%;">YT URL</th>
+            <th>Status</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Project 1</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Project XPTO</td>
+          <tr *ngFor="let item of items | async">
+            <td>{{item.key}}</td>
+            <td>{{item.playlistUrl}}</td>
+            <td>
+              <div class="spinner" *ngIf="item.processing_status !== 'New' && item.processing_status !== 'Exported'">
+                  <div class="bounce1"></div>
+                  <div class="bounce2"></div>
+                  <div class="bounce3"></div>
+              </div>
+              <a *ngIf="item.processing_status === 'Exported'" target="_blank" href="{{item.final_export_url}}">Exported</a>
+              <p *ngIf="item.processing_status !== 'Exported'">{{item.processing_status}}</p>
+              
+            </td>
+            <td><button (click)="processItem(item.key)">Process</button>&nbsp;<button (click)="deleteItem(item.key)">Delete</button></td>
           </tr>
         </tbody>
       </table>
+      <button style="color:red;" *ngIf="items | async" (click)="deleteEverything()">Delete all</button>
     </div>
   </div>  
 </div>

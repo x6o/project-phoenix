@@ -7,6 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProjectComponent } from './project.component';
 import { ProjectRouting } from './project.routing';
 import { SharedModule } from '../shared/shared.module';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 
@@ -20,7 +21,8 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
     NgbModule,
     SharedModule,
     ProjectRouting,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    HttpClientModule
   ]
 })
 export class ProjectModule {}

@@ -19,12 +19,12 @@ import { AlertsService } from './shared/alerts/alerts.service';
 import { AlertsComponent } from './shared/alerts/alerts.component';
 
 export const firebaseConfig = {
-  apiKey: '',
-  authDomain: '',
-  databaseURL: '',
-  projectId: '',
-  storageBucket: '',
-  messagingSenderId: ''
+  apiKey: 'AIzaSyA19i5xGl5mTcDBnCeTmUvjxG-5s9lq_hQ', /// This is a random test key. you need to change this API key to your API key.
+  authDomain: 'spliceer-video.firebaseapp.com',
+  databaseURL: 'https://spliceer-video.firebaseio.com',
+  projectId: 'spliceer-video',
+  storageBucket: 'spliceer-video.appspot.com',
+  messagingSenderId: '564284062646'
 };
 
 @NgModule({

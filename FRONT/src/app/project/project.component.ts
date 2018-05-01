@@ -6,6 +6,8 @@ import { AlertsService } from '../shared/alerts/alerts.service';
 
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-tester1',
@@ -22,7 +24,8 @@ export class ProjectComponent implements OnInit {
 
   constructor(private authService: AuthService,
     private alertsService: AlertsService,
-    private db:AngularFireDatabase
+    private db:AngularFireDatabase,
+    private http: HttpClient
   ) { 
     this.itemsRef = db.list('requests');
     // Use snapshotChanges().map() to store the key
@@ -38,10 +41,26 @@ export class ProjectComponent implements OnInit {
         playlistUrl: form.value.playlistUrl,
         numberVideos: form.value.numberVideos,
         videosFps: 30,
-        pickRandom: true
+        pickRandom: true,
+        final_export_url: "",
+        processing_status: "New"
     });
-
   }
+
+  processItem(key: string){
+    const headers = new HttpHeaders().set('content-type', 'application/json');
+    var body = {
+        requestId: key
+    }
+    this.http.post('http://127.0.0.1:5000/process', body, {
+        headers
+    }).subscribe(res => {
+      console.log(res);
+    }), err => {
+      console.log("Error Occured " + err);
+    }
+  }
+
   updateItem(key: string, newText: string) {
     this.itemsRef.update(key, { text: newText });
   }
@@ -49,7 +68,10 @@ export class ProjectComponent implements OnInit {
     this.itemsRef.remove(key); 
   }
   deleteEverything() {
-    this.itemsRef.remove();
+    var ask= confirm("Are you sure?");
+    if(ask){
+      this.itemsRef.remove();
+     }
   }
 
   onNewProj2(form: NgForm, db:AngularFireDatabase) {
